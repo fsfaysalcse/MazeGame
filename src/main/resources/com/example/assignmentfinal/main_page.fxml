@@ -7,16 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="b1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.assignmentfinal.MainController">
-   <children>
-      <ButtonBar layoutX="90.0" layoutY="119.0" prefHeight="40.0" prefWidth="200.0" />
-      <Button layoutX="255.0" layoutY="132.0" mnemonicParsing="false" onAction="#loginScene" prefHeight="53.0" prefWidth="90.0" text="Login" />
-      <Button layoutX="254.0" layoutY="208.0" mnemonicParsing="false" onAction="#registrationScene" prefHeight="54.0" prefWidth="90.0" text="SignUp" />
-      <Label layoutX="195.0" layoutY="43.0" prefHeight="54.0" prefWidth="209.0" text="Puzzle Mania" textAlignment="CENTER">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <Hyperlink layoutX="248.0" layoutY="272.0" onAction="#exit" text="Quit Puzzle Mania" textFill="#a40707" />
-   </children>
+<AnchorPane fx:id="b1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.assignmentfinal.MainController">
+    <children>
+        <ButtonBar layoutX="90.0" layoutY="119.0" prefHeight="40.0" prefWidth="200.0"/>
+        <Button layoutX="255.0" layoutY="132.0" mnemonicParsing="false" onAction="#loginPage" prefHeight="53.0"
+                prefWidth="90.0" text="Login"/>
+        <Button layoutX="254.0" layoutY="208.0" mnemonicParsing="false" onAction="#registrationPage" prefHeight="54.0"
+                prefWidth="90.0" text="SignUp"/>
+        <Label layoutX="195.0" layoutY="43.0" prefHeight="54.0" prefWidth="209.0" text="Puzzle Mania"
+               textAlignment="CENTER">
+            <font>
+                <Font size="36.0"/>
+            </font>
+        </Label>
+        <Hyperlink layoutX="248.0" layoutY="272.0" onAction="#exit" text="Quit Puzzle Mania" textFill="#a40707"/>
+    </children>
 </AnchorPane>

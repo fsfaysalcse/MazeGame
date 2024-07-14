@@ -20,7 +20,7 @@ public class MainController {
         return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }
 
-    private Scene loadScene(String fxmlFile, String cssFile) throws IOException {
+    private Scene loadPage(String fxmlFile, String cssFile) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL fxmlUrl = getClass().getResource(fxmlFile);
         if (fxmlUrl == null) {
@@ -44,9 +44,9 @@ public class MainController {
         return resUrl.toExternalForm();
     }
 
-    public void switchScene(ActionEvent event, String fxmlFile, String cssFile) {
+    public void switchPage(ActionEvent event, String fxmlFile, String cssFile) {
         try {
-            Scene scene = loadScene(fxmlFile, cssFile);
+            Scene scene = loadPage(fxmlFile, cssFile);
             Stage stage = getStageFromEvent(event);
             stage.setScene(scene);
             stage.show();
@@ -55,12 +55,12 @@ public class MainController {
         }
     }
 
-    public void loginScene(ActionEvent event) {
-        switchScene(event, "login_page.fxml", "styles/styles.css");
+    public void loginPage(ActionEvent event) {
+        switchPage(event, "login_page.fxml", "styles/styles.css");
     }
 
-    public void registrationScene(ActionEvent event) {
-      //  switchScene(event, "registrationPage.fxml", "styles.css");
+    public void registrationPage(ActionEvent event) {
+        switchPage(event, "registration_page.fxml", "styles/styles.css");
     }
 
     public void exit(ActionEvent event) {

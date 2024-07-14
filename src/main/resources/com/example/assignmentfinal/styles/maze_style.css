@@ -1,0 +1,18 @@
+.root {
+   /* -fx-background-color: #282c34; *//* Dark background for better contrast */
+    -fx-background-image: url(../assets/1778x1000.png);
+}
+
+#mainContainer {
+    -fx-padding: 20;
+    -fx-background-color: #ffffff; /* Light background for the maze area */
+    -fx-background-radius: 10;
+    -fx-background-insets: 10;
+    -fx-alignment: center;
+}
+
+.timer-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff0000; /* Red color for the timer text */
+}

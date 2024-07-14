@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane fx:id="mainContainer" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.assignmentfinal.MazeController">
+    <Canvas fx:id="mazeCanvas" width="600" height="600" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50"
+            AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50"/>
+    <Label fx:id="timerLabel" layoutX="260" layoutY="30" styleClass="timer-label"/>
+</AnchorPane>

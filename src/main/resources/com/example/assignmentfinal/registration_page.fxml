@@ -40,6 +40,6 @@
                 text="Register"/>
         <PasswordField fx:id="passwordField" layoutX="160.0" layoutY="214.0" onAction="#register" prefHeight="26.0"
                        prefWidth="274.0"/>
-        <Hyperlink layoutX="525.0" layoutY="362.0" onAction="#mainPage" text="mainPage" textFill="#a40707"/>
+        <Hyperlink layoutX="525.0" layoutY="362.0" onAction="#mainPage" text="Main Page" textFill="#a40707"/>
     </children>
 </AnchorPane>

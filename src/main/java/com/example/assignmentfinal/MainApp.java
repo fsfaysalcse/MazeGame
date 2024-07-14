@@ -16,7 +16,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Scene scene = createScene(loadFXML("main_page.fxml"));
+            Scene scene = createScene(loadFXML("menu.fxml"));
             stage.setScene(scene);
             stage.setTitle("PUZZLE MANIA");
             stage.show();
