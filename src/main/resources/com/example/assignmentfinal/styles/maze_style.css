@@ -1,11 +1,7 @@
-.root {
-   /* -fx-background-color: #282c34; *//* Dark background for better contrast */
-    -fx-background-image: url(../assets/1778x1000.png);
-}
 
 #mainContainer {
     -fx-padding: 20;
-    -fx-background-color: #ffffff; /* Light background for the maze area */
+    -fx-background-color: rgb(255, 255, 255); /* Light background for the maze area */
     -fx-background-radius: 10;
     -fx-background-insets: 10;
     -fx-alignment: center;
@@ -16,3 +12,62 @@
     -fx-font-weight: bold;
     -fx-text-fill: #ff0000; /* Red color for the timer text */
 }
+
+.easy .maze-cell {
+    -fx-stroke: black;
+}
+
+.medium .maze-cell {
+    -fx-stroke: white;
+}
+
+.hard .maze-cell {
+    -fx-stroke: red;
+}
+
+.expert .maze-cell {
+    -fx-stroke: black;
+}
+
+.root {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-font-family: "Arial", sans-serif;
+}
+
+.hbox {
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #45A049);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #45A049, #4CAF50);
+}
+
+.button:pressed {
+    -fx-background-color: #45A049;
+}
+
+.canvas {
+    -fx-border-color: #ccc;
+    -fx-border-width: 2px;
+    -fx-background-color: transparent;
+}
+
+.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+    -fx-padding: 10px 0;
+    -fx-alignment: center;
+}
+

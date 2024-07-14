@@ -5,12 +5,12 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.assignmentfinal.MazeController" spacing="10" alignment="CENTER">
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Start" fx:id="startPauseButton" onAction="#handleStartPause"/>
-        <Button text="Restart" fx:id="restartButton" onAction="#handleRestart"/>
-        <Button text="Exit" fx:id="exitButton" onAction="#handleExit"/>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.assignmentfinal.MazeController" spacing="10" alignment="CENTER" styleClass="root">
+    <HBox spacing="10" alignment="CENTER" styleClass="hbox">
+        <Button text="Start" fx:id="startPauseButton" onAction="#handleStartPause" styleClass="button"/>
+        <Button text="Restart" fx:id="restartButton" onAction="#handleRestart" styleClass="button"/>
+        <Button text="Exit" fx:id="exitButton" onAction="#handleExit" styleClass="button"/>
     </HBox>
-    <Canvas fx:id="mazeCanvas" width="600" height="600"/>
-    <Label fx:id="timerLabel" text="Timer: 00:00" style="-fx-font-size: 16px; -fx-text-fill: black;" alignment="CENTER"/>
+    <Canvas fx:id="mazeCanvas" width="600" height="600" styleClass="canvas"/>
+    <Label fx:id="timerLabel" text="Timer: 00:00" styleClass="label"/>
 </VBox>
