@@ -42,36 +42,27 @@ public class DashboardController {
 
     public void stage1(ActionEvent event) throws Exception {
 
-        /*
-        *     Parent root = FXMLLoader.load(getClass().getResource("main_page.fxml"));
-        String css = this.getClass().getResource("styles/styles.css").toExternalForm();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
-        * */
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("maze_game.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("maze_game.fxml"));
-        String css = getClass().getResource("styles/maze_style.css").toExternalForm();
+            MazeController mazeController = loader.getController();
+            mazeController.setDifficulty(Difficulty.MEDIUM);  // Set difficulty right after loading controller
 
+            String css = getClass().getResource("styles/maze_style.css").toExternalForm();
+            scene.getStylesheets().add(css);
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene.setOnKeyPressed(mazeController::handleKeyPress); // Set key handler
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
 
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
-
-        MazeController mazeController = loader.getController();
-        scene.setOnKeyPressed(ev -> {
-            mazeController.handleKeyPress(ev);
-            event.consume();
-        });
-
-        scene.getRoot().requestFocus();
+            root.requestFocus();  // Focus the root to ensure key events are handled by the scene
+        } catch (Exception e) {
+            e.printStackTrace();  // Print stack trace to help diagnose issues
+        }
     }
 
 
