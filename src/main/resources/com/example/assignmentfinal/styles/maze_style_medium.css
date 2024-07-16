@@ -1,0 +1,49 @@
+.root {
+    -fx-background-image: url(../assets/stage2.jpg);
+    -fx-background-size: cover;
+    -fx-background-position: center;
+
+    -fx-font-family: "Arial", sans-serif;
+}
+
+.hbox {
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #45A049);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #45A049, #4CAF50);
+}
+
+.button:pressed {
+    -fx-background-color: #45A049;
+}
+
+.canvas {
+    -fx-border-color: #ccc;
+    -fx-border-width: 2px;
+    -fx-background-color: transparent;
+}
+
+.label-container {
+    -fx-background-color: #ddd; /* Background for the timer */
+    -fx-alignment: center; /* Center align the content */
+    -fx-pref-width: 100%; /* Full width background */
+    -fx-padding: 10px;
+}
+
+.label {
+    -fx-font-size: 24px; /* Make the timer text bigger */
+    -fx-text-fill: #fd0000;
+    -fx-alignment: center;
+    -fx-text-alignment: center; /* Center align the text */
+}

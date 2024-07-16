@@ -41,47 +41,61 @@ public class DashboardController {
 
 
     public void stage1(ActionEvent event) throws Exception {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("maze_game.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            MazeController mazeController = loader.getController();
-            mazeController.setDifficulty(Difficulty.MEDIUM);  // Set difficulty right after loading controller
-
-            String css = getClass().getResource("styles/maze_style.css").toExternalForm();
-            scene.getStylesheets().add(css);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene.setOnKeyPressed(mazeController::handleKeyPress); // Set key handler
-
-            stage.setScene(scene);
-            stage.show();
-
-            root.requestFocus();  // Focus the root to ensure key events are handled by the scene
-        } catch (Exception e) {
-            e.printStackTrace();  // Print stack trace to help diagnose issues
-        }
+        navigateGame(event, Difficulty.EASY);
     }
 
 
     public void stage2(ActionEvent event) throws Exception {
-
-
+        navigateGame(event, Difficulty.MEDIUM);
     }
 
     public void stage3(ActionEvent event) throws Exception {
+        navigateGame(event, Difficulty.HARD);
 
     }
 
     public void stage4(ActionEvent event) throws Exception {
+        navigateGame(event, Difficulty.EXPERT);
 
     }
 
     public void tutorial(ActionEvent event) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("tutorial.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
 
     }
+
+    public void navigateGame(ActionEvent event, Difficulty difficulty) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("maze_game.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+
+        String cssPath = switch (difficulty) {
+            case EASY -> getClass().getResource("styles/maze_style_easy.css").toExternalForm();
+            case MEDIUM -> getClass().getResource("styles/maze_style_medium.css").toExternalForm();
+            case HARD -> getClass().getResource("styles/maze_style_hard.css").toExternalForm();
+            case EXPERT -> getClass().getResource("styles/maze_style_expert.css").toExternalForm();
+            default -> getClass().getResource("styles/maze_style_medium.css").toExternalForm();
+        };
+
+        scene.getStylesheets().add(cssPath);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
+        MazeController mazeController = loader.getController();
+        mazeController.setDifficulty(difficulty);
+        scene.setOnKeyPressed(ev -> {
+            mazeController.handleKeyPress(ev);
+            ev.consume();
+        });
+        scene.getRoot().requestFocus();
+    }
+
 
     public void mainPage(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("main_page.fxml"));

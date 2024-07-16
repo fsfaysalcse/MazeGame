@@ -22,9 +22,16 @@ import java.util.Random;
 import java.util.Stack;
 
 public class MazeController {
-    @FXML private Canvas mazeCanvas;
-    @FXML private Label timerLabel;
-    @FXML private Button startPauseButton;
+    @FXML
+    private Canvas mazeCanvas;
+    @FXML
+    private Label timerLabel;
+    @FXML
+    private Button startPauseButton;
+    @FXML
+    private Button restartButton;
+    @FXML
+    private Button exitButton;
 
     private int rows;
     private int cols;
@@ -39,13 +46,13 @@ public class MazeController {
     private static final long MOVE_DELAY = 200_000_000;
 
     public MazeController() {
-        // Default constructor needed for FXML
     }
 
     public void setDifficulty(Difficulty difficulty) {
         configureDifficulty(difficulty);
-        this.maze = new Cell[rows][cols]; // Reinitialize the maze array
-        initialize(); // Initialize maze components
+        applyBackgroundStyle(difficulty);
+        this.maze = new Cell[rows][cols];
+        initialize();
     }
 
     private void configureDifficulty(Difficulty difficulty) {
@@ -78,6 +85,8 @@ public class MazeController {
         }
     }
 
+
+
     public void initialize() {
         if (rows <= 0 || cols <= 0) {
             setDifficulty(Difficulty.MEDIUM);
@@ -85,8 +94,9 @@ public class MazeController {
         generateMaze();
         placePlayer();
         drawMaze();
+        setupFocus();
         mazeCanvas.setFocusTraversable(true);
-        mazeCanvas.requestFocus(); // Ensure the canvas always has focus
+        mazeCanvas.requestFocus();
         mazeCanvas.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
     }
 
@@ -101,7 +111,6 @@ public class MazeController {
             startPauseButton.setText("Start");
             isPaused = true;
         }
-        // Ensure the canvas always has focus
         mazeCanvas.requestFocus();
     }
 
@@ -115,14 +124,12 @@ public class MazeController {
         resumeTimer();
         startPauseButton.setText("Pause");
         isPaused = false;
-        // Ensure the canvas always has focus
         mazeCanvas.requestFocus();
     }
 
     @FXML
     private void handleExit() {
-        Stage stage = (Stage) mazeCanvas.getScene().getWindow();
-        stage.close();
+        goBackToPreviousScreen();
     }
 
     void handleKeyPress(KeyEvent event) {
@@ -143,8 +150,7 @@ public class MazeController {
                 default:
                     break;
             }
-            event.consume(); // Prevents event from propagating further, so UI controls don't interfere
-            mazeCanvas.requestFocus(); // Ensure the canvas always has focus
+            event.consume();
         }
     }
 
@@ -260,17 +266,52 @@ public class MazeController {
         c2.visited = true;
     }
 
+    private void applyBackgroundStyle(Difficulty difficulty) {
+        mazeCanvas.getStyleClass().clear();
+        mazeCanvas.getStyleClass().add("canvas");
+        switch (difficulty) {
+            case EASY:
+                mazeCanvas.getStyleClass().add("easy");
+                break;
+            case MEDIUM:
+                mazeCanvas.getStyleClass().add("medium");
+                break;
+            case HARD:
+                mazeCanvas.getStyleClass().add("hard");
+                break;
+            case EXPERT:
+                mazeCanvas.getStyleClass().add("expert");
+                break;
+        }
+    }
+
+
     private void drawMaze() {
         GraphicsContext gc = mazeCanvas.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, mazeCanvas.getWidth(), mazeCanvas.getHeight());
+        gc.clearRect(0, 0, mazeCanvas.getWidth(), mazeCanvas.getHeight());
+
+        double offsetX = (mazeCanvas.getWidth() - (cols * cellSize)) / 2;
+        double offsetY = (mazeCanvas.getHeight() - (rows * cellSize)) / 2;
+
+        Color wallColor;
+        if (mazeCanvas.getStyleClass().contains("easy")) {
+            wallColor = Color.BLACK;
+        } else if (mazeCanvas.getStyleClass().contains("medium")) {
+            wallColor = Color.WHITE;
+        } else if (mazeCanvas.getStyleClass().contains("hard")) {
+            wallColor = Color.WHITE;
+        } else if (mazeCanvas.getStyleClass().contains("expert")) {
+            wallColor = Color.HOTPINK;
+        } else {
+            wallColor = Color.BLACK; // Default color
+        }
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                double x = j * cellSize;
-                double y = i * cellSize;
-                gc.setStroke(Color.BLACK);
+                double x = j * cellSize + offsetX;
+                double y = i * cellSize + offsetY;
                 gc.setLineWidth(2);
+                gc.setStroke(wallColor);
 
                 if (maze[i][j].northWall) gc.strokeLine(x, y, x + cellSize, y);
                 if (maze[i][j].southWall) gc.strokeLine(x, y + cellSize, x + cellSize, y + cellSize);
@@ -282,7 +323,6 @@ public class MazeController {
                     gc.fillOval(x + 5, y + 5, cellSize - 10, cellSize - 10);
                 }
 
-                // Mark the finish point with a green point
                 if (i == rows - 1 && j == cols - 1) {
                     gc.setFill(Color.GREEN);
                     gc.fillOval(x + 5, y + 5, cellSize - 10, cellSize - 10);
@@ -291,8 +331,10 @@ public class MazeController {
         }
     }
 
+
+
     private void placePlayer() {
-        player = maze[0][0]; // Start position at the top-left corner
+        player = maze[0][0];
         player.hasPlayer = true;
     }
 
@@ -345,7 +387,22 @@ public class MazeController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private void setupFocus() {
+        mazeCanvas.setOnMouseClicked(event -> mazeCanvas.requestFocus());
+        startPauseButton.setOnAction(event -> {
+            handleStartPause();
+            mazeCanvas.requestFocus();
+        });
+        restartButton.setOnAction(event -> {
+            handleRestart();
+            mazeCanvas.requestFocus();
+        });
+        exitButton.setOnAction(event -> {
+            handleExit();
+            mazeCanvas.requestFocus();
+        });
     }
 
     class Cell {
