@@ -108,37 +108,33 @@ public class AuthController {
     }
 
     private boolean authenticateUser(String username, String password) {
-
-        if (username.isEmpty()) {
-            showAlert("Login Failed", "Please enter your email.");
-            return false;
-        }
-
-        if (password.isEmpty()) {
-            showAlert("Login Failed", "Please enter your password.");
+        if (username.isEmpty() || password.isEmpty()) {
+            showAlert("Login Failed", "Please enter your email and password.");
             return false;
         }
 
         JSONParser parser = new JSONParser();
-
         try (FileReader reader = new FileReader("src/main/resources/com/example/assignmentfinal/texts/data.json")) {
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
             JSONArray users = (JSONArray) jsonObject.get("users");
 
             for (Object userObj : users) {
                 JSONObject user = (JSONObject) userObj;
-                String storedUsername = (String) user.get("username");
-                String storedPassword = (String) user.get("password");
-
-                if (storedUsername.equals(username) && storedPassword.equals(password)) {
+                if (username.equals(user.get("username")) && password.equals(user.get("password"))) {
+                    JSONObject loggedUser = (JSONObject) jsonObject.get("logged_user");
+                    if (loggedUser == null) {
+                        loggedUser = new JSONObject();
+                    }
+                    loggedUser.put("username", username);
+                    loggedUser.put("password", password);
+                    jsonObject.put("logged_user", loggedUser);
+                    saveUsers(jsonObject);
                     return true;
                 }
             }
-
-            showAlert("Login Failed", "Please enter correct email and password.");
+            showAlert("Login Failed", "Incorrect email or password.");
         } catch (IOException | ParseException e) {
-            System.out.println("Error accessing or parsing the users file.");
-            e.printStackTrace();
+            showAlert("Login Failed", "An error occurred while accessing user data.");
         }
         return false;
     }
